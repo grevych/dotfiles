@@ -1,2 +1,2 @@
 # dotfiles
-Configuration files used for some of my loved tools
+Configuration files for some of my loved tools

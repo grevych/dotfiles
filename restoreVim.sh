@@ -23,6 +23,7 @@ git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
 git clone git://github.com/tpope/vim-surround.git ~/.vim/bundle/vim-surround
 git clone https://github.com/mattn/emmet-vim.git ~/.vim/bundle/emmet-vim
 git clone git://github.com/airblade/vim-gitgutter.git ~/.vim/bundle/vim-gitgutter
+git clone https://github.com/honza/vim-snippets.git ~/.vim/bundle/vim-snippets
 
 #Colors
 git clone https://github.com/flazz/vim-colorschemes.git ~/.vim/colors

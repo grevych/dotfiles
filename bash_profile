@@ -1,5 +1,4 @@
-# Author: Marin Alcaraz
-# Platform: OS X
+#!/bin/bash
 
 #-----------BEHAVIORS---------
 
@@ -34,7 +33,19 @@ alias show-hidden='defaults write com.apple.Finder AppleShowAllFiles TRUE'
 alias hide='defaults write com.apple.Finder AppleShowAllFiles FALSE'
 alias ne='mvim'
 
+alias vimrc='vim /Users/marin/.vimrc'
+alias bashrc='vim /Users/marin/.bash_profile'
+
 #------------PS---------------
 
-PS1='\[\e[1;32m\]\u@\W$>\[\e[0m\] '
+PS1="\[\e[1;32m\]\u@\W\[\e[0m\]\[\e[0;31m\]\$git_branch\[\e[m\]\[\e[0;31m\]\$git_dirty\[\e[0m\]\[\e[1;32m\]$>\[\e[0m\] "
 SUDO_PS1='\[\e[0;31m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;31m\]\$ \[\e[m\]\[\e[0;32m\]'
+
+#-----------RBENV-------------
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+#----------Git aware shell----
+export GITAWAREPROMPT=~/.bash/git-aware-prompt
+source "${GITAWAREPROMPT}/main.sh"

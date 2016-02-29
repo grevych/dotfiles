@@ -83,7 +83,7 @@ set wildignore+=*.o,*.a,*.pyc,*.git,*.svn,*.sw*,*.d
 :highlight ExtraWhitespace ctermbg=red guibg=red
 :match ExtraWhitespace /\s\+$/
 
-
+set tabstop=4
 " Except for Makefiles: Hard tabs of width 2
 autocmd FileType make set ts=2
 " And Markdown
@@ -228,11 +228,16 @@ nnoremap <space><space> :Ag<space>
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+let cwd = getcwd()
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_ruby_checkers = ['rubocop']
+
+let b:syntastic_scss_scss_lint_args = '--config ~/Wootric/lotus/.scss-lint.yml'
 
 "JSCS
 
@@ -258,6 +263,42 @@ nmap <Leader>hu <Plug>GitGutterRevertHunk
 "Supertab
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
+"Gundo
+nnoremap <F5> :GundoToggle<CR>
+
+"Vim-go
+let g:go_fmt_command = "goimports"
+
+"Rainbow parens
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+"
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -272,7 +313,10 @@ call vundle#begin()
   Plugin 'vim-airline/vim-airline'
   Plugin 'vim-airline/vim-airline-themes'
   Plugin 'scrooloose/syntastic'
+  Plugin 'sjl/gundo.vim'
   Plugin 'airblade/vim-gitgutter.git'
   Plugin 'ervandew/supertab'
+  Plugin 'fatih/vim-go'
+  Plugin 'kien/rainbow_parentheses.vim.git'
 call vundle#end()
 filetype plugin indent on

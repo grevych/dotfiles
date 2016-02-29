@@ -1,0 +1,28 @@
+[color]
+	ui = true
+[user]
+	name = Marín Alcaraz
+	email = marin.alcaraz@gmail.com
+[push]
+    default = current
+[alias]
+    down = !git checkout master && git merge @{-1} --ff-only && git push
+    up = !git fetch --prune --all && git rebase
+    go = !git log --graph --oneline
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+  required = true
+
+[branch "master"]
+  rebase = "true"
+
+[branch]
+  autosetuprebase=always
+
+[alias]
+  pl = pull -rebase
+[core]
+	excludesfile = /Users/marin/.gitignore_global
+[pull]
+	default = current

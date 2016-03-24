@@ -22,19 +22,23 @@ man() {
 set bell-style none
 
 #------------ENVIRONMENT VARIABLES-------------
-export PATH=/usr/local/go/bin:/usr/local/bin:/usr/pkg/bin:/usr/pkg/sbin:$PATH
+#export PATH=/usr/local/go/bin:/usr/local/bin:/usr/pkg/bin:/usr/pkg/sbin:$PATH
+#export PATH="/usr/local/textmate/bin:/usr/local/Cellar/mysql/5.6.20/bin:$PATH" 
+#export EDITOR="/usr/local/textmate/bin/mate -w" 
 export EDITOR=vim
 export SHELL=bash
 export MANPATH=/usr/pkg/man:$MANPATH
+export ARCHFLAGS="-arch x86_64"
+export CLASSPATH=".:$CLASSPATH"
 
 #------------ALIAS------------
-alias l='ls -l'
+alias lsl='ls -l'
 alias show-hidden='defaults write com.apple.Finder AppleShowAllFiles TRUE'
 alias hide='defaults write com.apple.Finder AppleShowAllFiles FALSE'
-alias ne='mvim'
+#alias ne='mvim'
 
-alias vimrc='vim /Users/marin/.vimrc'
-alias bashrc='vim /Users/marin/.bash_profile'
+alias vimrc='vim ~/.vimrc'
+alias bashrc='vim ~/.bash_profile'
 
 #------------PS---------------
 
@@ -42,10 +46,11 @@ PS1="\[\e[1;32m\]\u@\W\[\e[0m\]\[\e[0;31m\]\$git_branch\[\e[m\]\[\e[0;31m\]\$git
 SUDO_PS1='\[\e[0;31m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;31m\]\$ \[\e[m\]\[\e[0;32m\]'
 
 #-----------RBENV-------------
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+#if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+#export PATH="$HOME/.rbenv/bin:$PATH"
+#eval "$(rbenv init -)"
 
 #----------Git aware shell----
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
 source "${GITAWAREPROMPT}/main.sh"
+

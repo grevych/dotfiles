@@ -3,6 +3,10 @@
 
 "  If you don't understand a setting in here, just type ':h setting'.
 
+" Switch syntax highlighting on
+syntax on
+
+set t_Co=256
 colorscheme wombat256
 set encoding=utf-8
 
@@ -12,9 +16,6 @@ set nocompatible
 
 " Make backspace behave in a sane manner.
 set backspace=indent,eol,start
-
-" Switch syntax highlighting on
-syntax on
 
 " Show line numbers
 set number

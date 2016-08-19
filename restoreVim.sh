@@ -13,7 +13,7 @@ mkdir -p $VIM_BUNDLE
 git clone https://github.com/VundleVim/Vundle.vim.git $VIM_BUNDLE/Vundle.vim
 
 #Restore vimrc
-cp vimrc ~/.vimrc
+ln -s vimrc ~/.vimrc
 
 #Download plugins
 vim +PluginInstall +qall

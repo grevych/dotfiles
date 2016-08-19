@@ -1,8 +1,8 @@
 [color]
 	ui = true
 [user]
-	name = Marín Alcaraz
-	email = marin.alcaraz@gmail.com
+	name = Gerardo Reyes
+	email = grevych@gmail.com
 [push]
     default = current
 [alias]
@@ -23,6 +23,6 @@
 [alias]
   pl = pull -rebase
 [core]
-	excludesfile = /Users/marin/.gitignore_global
+	excludesfile = /Users/grevych/.gitignore_global
 [pull]
 	default = current

@@ -23,9 +23,20 @@ man() {
 export EDITOR=vim
 export SHELL=bash
 
+export PATH=/usr/local/bin:$PATH
+export WORKON_HOME=~/Environments
+export PROJECT_HOME=~/Projects
+
+source /usr/local/bin/virtualenvwrapper.sh
+
+
 #------------ALIAS------------
 alias l='ls -l'
 
 #------------PS---------------
 
 PS1='\[\e[0;31m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;31m\]\$ \[\e[m\]\[\e[0;32m\]'
+
+
+
+

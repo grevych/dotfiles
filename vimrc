@@ -1,5 +1,6 @@
-" Original Author:	     Bram Moolenaar <Bram@vim.org>
-" Modified by:               Marin Alcaraz  <mailto@alcarazmar.in>
+" Original Author:      Bram Moolenaar <Bram@vim.org>
+" Modified by:          Marin Alcaraz  <mailto@alcarazmar.in>
+" Modified by:          Gerardo Reyes  <grevych@gmail.com>
 
 "  If you don't understand a setting in here, just type ':h setting'.
 
@@ -7,7 +8,10 @@
 syntax on
 
 set t_Co=256
-colorscheme wombat256
+" set guicolors
+" colorscheme wombat256
+" olorscheme tender
+colorscheme tendercontrast
 set encoding=utf-8
 
 " Use Vim settings, rather than Vi settings (much better!).
@@ -319,5 +323,7 @@ call vundle#begin()
   Plugin 'ervandew/supertab'
   Plugin 'fatih/vim-go'
   Plugin 'kien/rainbow_parentheses.vim.git'
+  Plugin 'jacoborus/tender'
 call vundle#end()
 filetype plugin indent on
+

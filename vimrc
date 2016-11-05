@@ -11,7 +11,7 @@ set t_Co=256
 " set guicolors
 " colorscheme wombat256
 " olorscheme tender
-colorscheme tendercontrast
+colorscheme tender
 set encoding=utf-8
 
 " Use Vim settings, rather than Vi settings (much better!).

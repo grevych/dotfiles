@@ -1,0 +1,25 @@
+"
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+  Plugin 'VundleVim/Vundle.vim'
+  Plugin 'tpope/vim-fugitive'
+  Plugin 'kien/ctrlp.vim'
+  Plugin 'rking/ag.vim'
+  Plugin 'mattn/emmet-vim'
+  Plugin 'tpope/vim-surround'
+  Plugin 'scrooloose/nerdtree'
+  Plugin 'scrooloose/nerdcommenter'
+  Plugin 'vim-airline/vim-airline'
+  Plugin 'vim-airline/vim-airline-themes'
+  Plugin 'scrooloose/syntastic'
+  Plugin 'sjl/gundo.vim'
+  Plugin 'airblade/vim-gitgutter.git'
+  Plugin 'ervandew/supertab'
+  Plugin 'fatih/vim-go'
+  Plugin 'kien/rainbow_parentheses.vim.git'
+  Plugin 'jacoborus/tender'
+call vundle#end()
+filetype plugin indent on
+

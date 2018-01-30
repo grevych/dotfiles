@@ -4,19 +4,46 @@
 
 "  If you don't understand a setting in here, just type ':h setting'.
 
+
+" Use Vim settings, rather than Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+
+filetype off                  " required
+
+" Set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+  Plugin 'VundleVim/Vundle.vim'
+  Plugin 'tpope/vim-fugitive'
+  Plugin 'kien/ctrlp.vim'
+  Plugin 'rking/ag.vim'
+  Plugin 'mattn/emmet-vim'
+  Plugin 'tpope/vim-surround'
+  Plugin 'scrooloose/nerdtree'
+  Plugin 'scrooloose/nerdcommenter'
+  Plugin 'vim-airline/vim-airline'
+  Plugin 'vim-airline/vim-airline-themes'
+  Plugin 'scrooloose/syntastic'
+  Plugin 'sjl/gundo.vim'
+  Plugin 'airblade/vim-gitgutter.git'
+  Plugin 'ervandew/supertab'
+  Plugin 'fatih/vim-go'
+  Plugin 'kien/rainbow_parentheses.vim.git'
+  Plugin 'jacoborus/tender'
+  Plugin 'leafgarland/typescript-vim'
+call vundle#end()
+filetype plugin indent on
+
+
 " Switch syntax highlighting on
 syntax on
 
 set t_Co=256
 " set guicolors
 " colorscheme wombat256
-" olorscheme tender
 colorscheme tender
 set encoding=utf-8
-
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
 
 " Make backspace behave in a sane manner.
 set backspace=indent,eol,start
@@ -32,7 +59,6 @@ set clipboard=unnamed
 
 " Allow hidden buffers, don't limit to 1 file per window/split
 set hidden
-filetype off
 
 " Bash-style tab completion
 set wildmode=longest,list
@@ -61,7 +87,7 @@ set hlsearch
 
 " Default to soft tabs, 2 spaces
 set expandtab
-set sw=2
+" set sw=2
 set sts=2
 
 " Map leader
@@ -71,7 +97,6 @@ let mapleader = ","
 com! FormatJSON %!python -m json.tool
 
 "Disable bells
-
 set noerrorbells
 set novisualbell
 autocmd! GUIEnter * set vb t_vb=
@@ -103,15 +128,21 @@ set colorcolumn=80
 "Emmet
 let g:user_emmet_leader_key='<C-E>'
 
+
 "NerdTree
 map <F6> :NERDTreeToggle<CR>
+autocmd vimenter * NERDTree | wincmd p
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
 
 "Limit 80 chars
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
 "CLOSE NERDTREE WHEN LAST WINDOW
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 
 "Airline
 let g:airline_powerline_fonts = 1
@@ -123,20 +154,17 @@ endif
 let g:airline_symbols.space = "\ua0"
 let g:bufferline_echo = 0
 set laststatus=2
-let g:airline_theme='wombat'
+" let g:airline_theme='wombat'
 
 " Control-P Settings
-
 let g:ctrlp_working_path_mode = 'rc'
 map <leader>f :CtrlP<cr>
 map <leader>F :CtrlP %%<cr>
-
 map <C-f> :CtrlPBuffer<CR>
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_max_height = 20
 
 " Whitespace settings
-
 function! TrimWhiteSpace()
   %s/\s\+$//e
 endfunction
@@ -248,18 +276,18 @@ let b:syntastic_scss_scss_lint_args = '--config ~/Wootric/lotus/.scss-lint.yml'
 
 function! JscsFix()
     "Save current cursor position"
-    let l:winview = winsaveview()
+    ""let l:winview = winsaveview()
     "Pipe the current buffer (%) through the jscs -x command"
-    % ! jscs -x
+    ""% ! jscs -x
     "Restore cursor position - this is needed as piping the file"
     "through jscs jumps the cursor to the top"
-    call winrestview(l:winview)
+    ""call winrestview(l:winview)
 endfunction
-command! JscsFix :call JscsFix()
+"command! JscsFix :call JscsFix()
 
 "Run the JscsFix command just before the buffer is written for *.js files"
-autocmd BufWritePre *.js JscsFix
-nnoremap <F4> :JscsFix<CR>
+"autocmd BufWritePre *.js JscsFix
+"nnoremap <F4> :JscsFix<CR>
 
 "Gitgutter
 nmap <Leader>ha <Plug>GitGutterStageHunk
@@ -302,28 +330,4 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-"
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-  Plugin 'VundleVim/Vundle.vim'
-  Plugin 'tpope/vim-fugitive'
-  Plugin 'kien/ctrlp.vim'
-  Plugin 'rking/ag.vim'
-  Plugin 'mattn/emmet-vim'
-  Plugin 'tpope/vim-surround'
-  Plugin 'scrooloose/nerdtree'
-  Plugin 'scrooloose/nerdcommenter'
-  Plugin 'vim-airline/vim-airline'
-  Plugin 'vim-airline/vim-airline-themes'
-  Plugin 'scrooloose/syntastic'
-  Plugin 'sjl/gundo.vim'
-  Plugin 'airblade/vim-gitgutter.git'
-  Plugin 'ervandew/supertab'
-  Plugin 'fatih/vim-go'
-  Plugin 'kien/rainbow_parentheses.vim.git'
-  Plugin 'jacoborus/tender'
-call vundle#end()
-filetype plugin indent on
 

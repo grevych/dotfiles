@@ -1,0 +1,24 @@
+
+POWERLINE
+--------
+Install font patch (git repo is added to restoreVim.sh)
+iTerm2 -> Preferences > Profiles > Text > NON ASCII > Go Mono for Powerline
+iTerm2 -> Preferences > Profiles > Color Preset > Arthur | AdventureTime | Afterglow
+
+iTerm2SchemeColor repository is important
+
+
+REPOSITORIES
+-----------
+https://github.com/VundleVim/Vundle.vim
+https://github.com/vim-airline/vim-airline-themes
+https://github.com/vim-airline/vim-airline
+git clone https://github.com/powerline/fonts.git --depth=1
+https://github.com/powerline/fonts
+https://powerline.readthedocs.io/en/master/installation.html#patched-fonts
+https://github.com/sjl/gundo.vim
+https://github.com/ctrlpvim/ctrlp.vim
+https://sjl.bitbucket.io/gundo.vim/
+https://github.com/scrooloose/nerdtree
+https://stackoverflow.com/questions/4277808/nerdtree-auto-focus-to-file-when-opened-in-new-tab
+https://github.com/tpope/vim-fugitive

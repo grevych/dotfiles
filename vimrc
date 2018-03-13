@@ -56,6 +56,7 @@ set backspace=2
 
 " Use OS clipboard for copypasta
 set clipboard=unnamed
+" set clipboard=unamedplus
 
 " Allow hidden buffers, don't limit to 1 file per window/split
 set hidden
@@ -74,7 +75,13 @@ set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "Hide scrollbar
 
-set guifont=Meslo\ LG\ S\ for\ Powerline:h16
+"set guifont=Meslo\ LG\ S\ for\ Powerline:h16
+
+"Gvim
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <C-r><C-o>+
 
 " Show statusline
 set laststatus=2
@@ -134,6 +141,7 @@ map <F6> :NERDTreeToggle<CR>
 autocmd vimenter * NERDTree | wincmd p
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
+let NERDTreeShowHidden=1
 
 "Limit 80 chars
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929

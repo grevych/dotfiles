@@ -32,6 +32,7 @@ call vundle#begin()
   Plugin 'kien/rainbow_parentheses.vim.git'
   Plugin 'jacoborus/tender'
   Plugin 'leafgarland/typescript-vim'
+  Plugin 'wakatime/vim-wakatime'
 call vundle#end()
 filetype plugin indent on
 

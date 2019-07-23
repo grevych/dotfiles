@@ -32,9 +32,16 @@ call vundle#begin()
   Plugin 'kien/rainbow_parentheses.vim.git'
   Plugin 'jacoborus/tender'
   Plugin 'leafgarland/typescript-vim'
+  Plugin 'wakatime/vim-wakatime'
 call vundle#end()
+
 filetype plugin indent on
 
+"Folding
+set foldmethod=syntax "syntax highlighting items specify folds
+set foldcolumn=2 "defines 1 col at window left, to indicate folding
+" let javaScript_fold=1 "activate folding by JS syntax
+set foldlevelstart=99 "start file with all folds opened
 
 " Switch syntax highlighting on
 syntax on
@@ -128,9 +135,10 @@ set colorcolumn=80
 "Emmet
 let g:user_emmet_leader_key='<C-E>'
 
-
 "NerdTree
 map <F6> :NERDTreeToggle<CR>
+map <c-n> :NERDTreeToggle<cr>
+map <leader>n :NERDTreeFind<cr>
 autocmd vimenter * NERDTree | wincmd p
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
@@ -163,6 +171,15 @@ map <leader>F :CtrlP %%<cr>
 map <C-f> :CtrlPBuffer<CR>
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_max_height = 20
+
+let g:ctrlp_working_path_mode = 0
+
+let g:ctrlp_map = '<c-f>'
+map <leader>j :CtrlP<cr>
+map <c-b> :CtrlPBuffer<cr>
+
+let g:ctrlp_max_height = 20
+let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 
 " Whitespace settings
 function! TrimWhiteSpace()
@@ -330,4 +347,5 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-
+syntax on
+colorscheme tender

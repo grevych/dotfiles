@@ -84,41 +84,12 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f /Users/grevych/Projects/wizeline/platform/classic/api/google-cloud-sdk/path.zsh.inc ]; then
-  source '/Users/grevych/Projects/wizeline/platform/classic/api/google-cloud-sdk/path.zsh.inc'
-fi
 
-# The next line enables shell command completion for gcloud.
-if [ -f /Users/grevych/Projects/wizeline/platform/classic/api/google-cloud-sdk/completion.zsh.inc ]; then
-  source '/Users/grevych/Projects/wizeline/platform/classic/api/google-cloud-sdk/completion.zsh.inc'
-fi
-
-gopath() {
-  DEFAULT_PROJECT="playground"
-  PROJECT_NAME="${1:-$DEFAULT_PROJECT}"
-  PROJECTS_DIR=/Users/grevych/Projects
-  PROJECT_DIR=$PROJECTS_DIR/$PROJECT_NAME
-  if [ ! -d $PROJECT_DIR ]; then
-    PROJECT_DIR=$PROJECTS_DIR/$DEFAULT_PROJECT
-  fi
-  export GOPATH=$PROJECT_DIR
-}
-
-# google app engine with django paths
-export GAE="/usr/local/google_appengine"
-export PYTHONPATH="$PYTHONPATH:$GAE:$GAE/lib/django-1.5"
-export PATH="$PATH:$GAE/lib/django-1.5/django/bin/"
-
-
-alias wizeline-github-integration="cd ~/Projects/wizeline/platform/classic/github/repo; deactivate; source ~/Environments/wizeline/platform/classic/github/bin/activate;"
-alias wizeline-kwatee="cd ~/Projects/wizeline/mpp/kwatee/repo; deactivate_node; source ~/Projects/wizeline/mpp/kwatee/env/node/bin/activate;"
-alias kwatee-clone-barrons="PYTHONPATH=/Users/grevych/Projects/wizeline/mpp/kwatee/projectionist/repo python -m 'kwatee.main' --log-level=debug deploy clone @/Users/grevych/Projects/wizeline/mpp/kwatee/projectionist/repo/arguments/clone.barrons"
-
-
-export PATH=/usr/local/bin:$PATH
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
-gopath
+# GOHOME ?
+export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=/Users/grevych/Projects/go
+export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$PATH:$GOROOT/bin
+export CDPATH=$GOPATH/src/github.com
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"

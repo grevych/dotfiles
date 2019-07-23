@@ -2,7 +2,7 @@
 
 HOMEDIR=$(cd $(dirname "$0"); pwd)
 VIM_HOME=~/.vim
-VIM_COLORS=$VIM_HOME/colors
+VIM_COLORS=$VIM_HOME/colors # default: /usr/share/vim/vim74/colors
 VIM_BUNDLE=$VIM_HOME/bundle
 VIM_FONTS=$VIM_HOME/fonts
 

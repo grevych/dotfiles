@@ -88,10 +88,16 @@ source $ZSH/oh-my-zsh.sh
 # GOHOME ?
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=/Users/grevych/Projects/go
-export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$PATH:$GOROOT/bin
+# The following can be solved running `source /etc/profile`
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=$GOPATH/bin:$PATH:$GOROOT/bin
 export CDPATH=$GOPATH/src/github.com
+export EDITOR=vim
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # NPM adds /Users/grevych/Projects/$PATH_TO_NODEENV/lib/node_modules/.bin:/Users/grevych/Projects/$PATH_TO_NODEENV/bin to $PATH
+
+
+source ./.projectsrc

@@ -1,0 +1,22 @@
+
+PROJECTS_BASE_DIR='/Users/gerardo.reyes/projects'
+
+activateNodeProject()
+{
+	activateProject node $1
+}
+
+activatePythonProject()
+{
+	activateProject python $1
+}
+
+activateProject()
+{
+	cd $PROJECTS_BASE_DIR/$2
+	source env/$1/bin/activate
+	cd repo
+	git status
+}
+
+alias anp='activateNodeProject'

@@ -93,8 +93,10 @@ set ignorecase
 set hlsearch
 
 " Default to soft tabs, 2 spaces
-set expandtab
-" set sw=2
+set autoindent
+" set expandtab
+set noexpandtab
+set sw=2
 set sts=2
 
 " Map leader
@@ -135,6 +137,9 @@ set colorcolumn=80
 "Emmet
 let g:user_emmet_leader_key='<C-E>'
 
+inoremap ff <Esc>
+tnoremap <Esc> <C-\><C-n>
+
 "NerdTree
 map <F6> :NERDTreeToggle<CR>
 map <c-n> :NERDTreeToggle<cr>
@@ -142,6 +147,32 @@ map <leader>n :NERDTreeFind<cr>
 autocmd vimenter * NERDTree | wincmd p
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
+let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinSize = 42
+" autocmd FileType nerdtree let b:NERDTreeZoomed = 1
+" autocmd BufEnter NERD_tree_* normal A
+" autocmd BufLeave NERD_tree_* normal A
+function NERDTreeMaximize()    
+  if !exists("b:NERDTreeZoomed") || !b:NERDTreeZoomed    
+    call NERDTreeMaximizeToggle()                                        
+  endif                                                                      
+endfunction                                                                  
+
+function NERDTreeMinimize()                                                  
+  if exists("b:NERDTreeZoomed") && b:NERDTreeZoomed    
+    call NERDTreeMaximizeToggle()    
+    normal <C-w>=<CR>
+  endif                                                                      
+endfunction                                                                  
+
+function NERDTreeMaximizeToggle()                                            
+  call b:NERDTree.ui.toggleZoom()                                            
+endfunction                                                                  
+
+augroup vimrc_nerdtree                                                       
+  autocmd BufEnter NERD_tree_* :call NERDTreeMaximize()    
+  autocmd BufLeave NERD_tree_* :call NERDTreeMinimize()    
+augroup END
 
 "Limit 80 chars
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929

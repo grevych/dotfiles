@@ -33,12 +33,16 @@ call vundle#begin()
   Plugin 'jacoborus/tender'
   Plugin 'leafgarland/typescript-vim'
   Plugin 'wakatime/vim-wakatime'
+  Plugin 'tpope/vim-rhubarb'
+  Plugin 'shumphrey/fugitive-gitlab.vim'
+  Plugin 'jparise/vim-phabricator'
+  Plugin 'vim-test/vim-test'
 call vundle#end()
 
 filetype plugin indent on
 
 "Folding
-set foldmethod=syntax "syntax highlighting items specify folds
+" set foldmethod=syntax "syntax highlighting items specify folds
 set foldcolumn=2 "defines 1 col at window left, to indicate folding
 " let javaScript_fold=1 "activate folding by JS syntax
 set foldlevelstart=99 "start file with all folds opened
@@ -317,6 +321,9 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_scss_checkers = ['scss_lint']
 let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_go_checkers = ['golint', 'govet', 'golangci-lint']
+let g:syntastic_go_gometalinter_args = ['--disable-all', '--enable=errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 let b:syntastic_scss_scss_lint_args = '--config ~/Wootric/lotus/.scss-lint.yml'
 
@@ -340,6 +347,7 @@ endfunction
 "Gitgutter
 nmap <Leader>ha <Plug>GitGutterStageHunk
 nmap <Leader>hu <Plug>GitGutterRevertHunk
+let g:gitgutter_highlight_lines = 1
 
 "Supertab
 let g:SuperTabDefaultCompletionType = "<c-n>"
@@ -348,7 +356,35 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 nnoremap <F5> :GundoToggle<CR>
 
 "Vim-go
+let g:go_version_warning = 1
+let g:go_jump_to_error = 1
 let g:go_fmt_command = "goimports"
+" let g:go_fmt_command = "gofmt"
+let g:go_list_type = "locationlist"
+let g:go_decls_mode = 'ctrlp.vim'
+let g:go_echo_command_info = 0
+
+"vim-test
+function Test_SetTypescriptExec()
+  let g:test#javascript#jest#executable = 'npm run fe:tsc && npx jest --config jest/jest.config.js'
+endfunction
+
+function Test_SetJavascriptExec()
+  let g:test#javascript#jest#executable = 'npx jest'
+endfunction
+
+" let g:test#preserve_screen = 1
+augroup test
+  autocmd BufEnter *.test.tsx :call Test_SetTypescriptExec()
+  autocmd BufEnter *.test.js :call Test_SetJavascriptExec()
+augroup END
+
+" these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
 
 "Rainbow parens
 let g:rbpt_colorpairs = [

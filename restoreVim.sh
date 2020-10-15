@@ -28,6 +28,8 @@ rm -f ~/.vimrc
 
 # Restore vimrc file
 ln -s $HOMEDIR/vimrc ~/.vimrc
+ln -s $HOMEDIR/commands.sh ~/.commands.sh
+ln -s $HOMEDIR/secrets.sh ~/.secrets.sh
 
 #Download plugins
 vim +PluginInstall +qall

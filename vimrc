@@ -11,6 +11,8 @@ set nocompatible
 
 filetype off                  " required
 
+" Set the runtime path to include fzf
+set rtp+=/usr/local/opt/fzf
 " Set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -18,10 +20,10 @@ call vundle#begin()
   Plugin 'tpope/vim-fugitive'
   Plugin 'kien/ctrlp.vim'
   Plugin 'rking/ag.vim'
-  Plugin 'mattn/emmet-vim'
   Plugin 'tpope/vim-surround'
   Plugin 'scrooloose/nerdtree'
-  Plugin 'scrooloose/nerdcommenter'
+  Plugin 'preservim/nerdcommenter'
+  Plugin 'ryanoasis/vim-devicons'
   Plugin 'vim-airline/vim-airline'
   Plugin 'vim-airline/vim-airline-themes'
   Plugin 'scrooloose/syntastic'
@@ -31,21 +33,24 @@ call vundle#begin()
   Plugin 'fatih/vim-go'
   Plugin 'kien/rainbow_parentheses.vim.git'
   Plugin 'jacoborus/tender'
-  Plugin 'leafgarland/typescript-vim'
   Plugin 'wakatime/vim-wakatime'
   Plugin 'tpope/vim-rhubarb'
-  Plugin 'shumphrey/fugitive-gitlab.vim'
-  Plugin 'jparise/vim-phabricator'
   Plugin 'vim-test/vim-test'
+  Plugin 'junegunn/fzf'
+  Plugin 'junegunn/fzf.vim'
 call vundle#end()
 
 filetype plugin indent on
+
+ 
 
 "Folding
 " set foldmethod=syntax "syntax highlighting items specify folds
 set foldcolumn=2 "defines 1 col at window left, to indicate folding
 " let javaScript_fold=1 "activate folding by JS syntax
 set foldlevelstart=99 "start file with all folds opened
+
+
 
 " Switch syntax highlighting on
 syntax on
@@ -54,7 +59,7 @@ set t_Co=256
 " set guicolors
 " colorscheme wombat256
 colorscheme tender
-set encoding=utf-8
+set encoding=UTF-8
 
 " Make backspace behave in a sane manner.
 set backspace=indent,eol,start
@@ -79,13 +84,16 @@ set wildmenu
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 
-"Macvim
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
-set guioptions-=r  "remove right-hand scroll bar
-set guioptions-=L  "Hide scrollbar
 
-set guifont=Meslo\ LG\ S\ for\ Powerline:h16
+
+"Macvim
+" set guioptions-=m  "remove menu bar
+" set guioptions-=T  "remove toolbar
+" set guioptions-=r  "remove right-hand scroll bar
+" set guioptions-=L  "Hide scrollbar
+" set guifont=Meslo\ LG\ S\ for\ Powerline:h16
+
+
 
 " Show statusline
 set laststatus=2
@@ -139,20 +147,24 @@ au BufRead,BufNewFile *.cql set filetype=cql
 set colorcolumn=80
 
 "Emmet
-let g:user_emmet_leader_key='<C-E>'
+" let g:user_emmet_leader_key='<C-E>'
 
-inoremap ff <Esc>
+inoremap ,, <Esc>
 tnoremap <Esc> <C-\><C-n>
 
 "NerdTree
-map <F6> :NERDTreeToggle<CR>
+" map <F6> :NERDTreeToggle<CR>
 map <c-n> :NERDTreeToggle<cr>
-map <leader>n :NERDTreeFind<cr>
+map <leader>f :NERDTreeFind<cr>
 autocmd vimenter * NERDTree | wincmd p
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeWinSize = 42
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 0
+let g:NERDTreeIgnore = ['node_modules/']
+let g:NERDTreeStatusline = ''
 " autocmd FileType nerdtree let b:NERDTreeZoomed = 1
 " autocmd BufEnter NERD_tree_* normal A
 " autocmd BufLeave NERD_tree_* normal A
@@ -187,6 +199,34 @@ match OverLength /\%81v.\+/
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 
+" NeoVim Integrated terminal
+set splitbelow
+" turn terminal to normal mode with escape
+" tnoremap <Esc> <C-\><C-n>
+" start terminal in insert mode
+au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+" open terminal on ctrl+n
+function! OpenTerminal()
+  split term://zsh
+  resize 10
+endfunction
+nnoremap <C-s> :call OpenTerminal()<CR>
+" use alt+hjkl to move between split/vsplit panels
+" tnoremap <C-h> <C-\><C-n><C-w>h
+" tnoremap <C-j> <C-\><C-n><C-w>j
+" tnoremap <C-k> <C-\><C-n><C-w>k
+" tnoremap <C-l> <C-\><C-n><C-w>l
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+" nnoremap <C-l> <C-w>l
+
+
+" Fzf
+let g:fzf_layout = { 'down': '~40%' }
+
+
+
 "Airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#left_sep = ' '
@@ -200,19 +240,18 @@ set laststatus=2
 " let g:airline_theme='wombat'
 
 " Control-P Settings
-let g:ctrlp_working_path_mode = 'rc'
-map <leader>f :CtrlP<cr>
-map <leader>F :CtrlP %%<cr>
-map <C-f> :CtrlPBuffer<CR>
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_max_height = 20
-
-let g:ctrlp_working_path_mode = 0
-
 let g:ctrlp_map = '<c-f>'
-map <leader>j :CtrlP<cr>
+let g:ctrlp_working_path_mode = 'rc'
+" map <leader>j :CtrlP<cr>
+map <c-f> :CtrlP<cr>
 map <c-b> :CtrlPBuffer<cr>
 
+" map <leader>f :CtrlP<cr>
+" map <leader>F :CtrlP %%<cr>
+" map <C-f> :CtrlPBuffer<CR>
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_max_height = 20
+let g:ctrlp_working_path_mode = 0
 let g:ctrlp_max_height = 20
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 
@@ -225,7 +264,7 @@ endfunction
 set list listchars=tab:» ,nbsp:•,trail:·,extends:»,precedes:«
 
 " Toggle invisible characters with leader-tab
-nmap <silent> <leader><tab> :set nolist!<CR>
+" nmap <silent> <leader><tab> :set nolist!<CR>
 
 " highlight trailing whitespace
 highlight ExtraWhitespace ctermbg=lightgrey guibg=lightgrey ctermfg=red guifg=lightred
@@ -268,7 +307,6 @@ set wildignore+=spec/vcr/*
 set wildignore+=bundler_stubs/*
 
 " Smart Tab completion
-
 set completeopt=longest,menuone
 function! Smart_TabComplete()
   let line = getline('.')                         " current line
@@ -291,7 +329,7 @@ function! Smart_TabComplete()
   endif
 endfunction
 
-inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+" inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -308,6 +346,24 @@ endif
 "Search
 " Initiate search with <space><space>
 nnoremap <space><space> :Ag<space>
+
+
+
+
+" Fzf
+" nnoremap <silent> <Leader>b :Buffers<CR>
+" nnoremap <silent> <Leader>f :Rg<CR>
+" nnoremap <silent> <Leader>/ :BLines<CR>
+" nnoremap <silent> <Leader>' :Marks<CR>
+nnoremap <silent> <C-f> :Files<CR>
+nnoremap <silent> <C-b> :Buffers<CR>
+nnoremap <silent> <C-r> :Rg<CR>
+nnoremap <silent> <C-l> :BLines<CR>
+nnoremap <silent> f<C-c> :Commits<CR>
+nnoremap <silent> f<C-t> :Helptags<CR>
+nnoremap <silent> f<C-h> :History<CR>
+nnoremap <silent> <Leader>h: :History:<CR>
+nnoremap <silent> <Leader>h/ :History/<CR> 
 
 "Syntastic
 set statusline+=%#warningmsg#
@@ -327,22 +383,6 @@ let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 let b:syntastic_scss_scss_lint_args = '--config ~/Wootric/lotus/.scss-lint.yml'
 
-"JSCS
-
-function! JscsFix()
-    "Save current cursor position"
-    ""let l:winview = winsaveview()
-    "Pipe the current buffer (%) through the jscs -x command"
-    ""% ! jscs -x
-    "Restore cursor position - this is needed as piping the file"
-    "through jscs jumps the cursor to the top"
-    ""call winrestview(l:winview)
-endfunction
-"command! JscsFix :call JscsFix()
-
-"Run the JscsFix command just before the buffer is written for *.js files"
-"autocmd BufWritePre *.js JscsFix
-"nnoremap <F4> :JscsFix<CR>
 
 "Gitgutter
 nmap <Leader>ha <Plug>GitGutterStageHunk
@@ -350,7 +390,7 @@ nmap <Leader>hu <Plug>GitGutterRevertHunk
 let g:gitgutter_highlight_lines = 1
 
 "Supertab
-let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = "<C-t>"
 
 "Gundo
 nnoremap <F5> :GundoToggle<CR>

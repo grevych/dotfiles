@@ -1,8 +1,34 @@
+
+# Brew bin path
+# The following can be solved running `source /etc/profile`
+export PATH=/usr/local/bin:$PATH
+export EDITOR=vim
+
+# rm $HOME/.zcompdump*
+fpath=(
+  $(brew --prefix)/share/zsh-completions
+  $(brew --prefix)/share/zsh/site-functions
+  # $HOME/zsh-completions
+  $fpath
+)
+
+# autoload -Uz compinit
+# compinit
+# REMEMBER TO DELETE ~/.zcompdump
+
+# fpath
+# prev ohmyzsh fpath
+# /usr/local/share/zsh/site-functions:/usr/share/zsh/site-functions:/usr/share/zsh/5.7.1/functions
+# after ohmyzh fpath
+# /Users/gerardo.reyes/.oh-my-zsh/plugins/git:/Users/gerardo.reyes/.oh-my-zsh/functions:/Users/gerardo.reyes/.oh-my-zsh/completions:/usr/local/share/zsh/site-functions:/usr/share/zsh/site-functions:/usr/share/zsh/5.7.1/functions
+
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=/usr/local/oh-my-zsh
+# export ZSH="/Users/gerardo.reyes/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -53,6 +79,7 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
+# ZSH_DISABLE_COMPFIX="true"
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -95,9 +122,20 @@ export CDPATH=$GOPATH/src/github.com
 export EDITOR=vim
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+# ZSH_DISABLE_COMPFIX="true"
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # NPM adds /Users/grevych/Projects/$PATH_TO_NODEENV/lib/node_modules/.bin:/Users/grevych/Projects/$PATH_TO_NODEENV/bin to $PATH
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
+[[ -r ~/.secrets.sh ]] && . ~/.secrets.sh
+[[ -r ~/.commands.sh ]] && . ~/.commands.sh
 
 source ./.projectsrc
+
+# [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+# export FZF_DEFAULT_COMMAND='ag .'
+export FZF_DEFAULT_OPTS='--no-mouse --height 50% -1 --border --reverse --multi --inline-info'
+
+# Look at ~/.zshenv !!!!!!
+

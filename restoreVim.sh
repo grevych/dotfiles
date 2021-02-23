@@ -22,6 +22,7 @@ $VIM_FONTS/repo/install.sh
 
 # Copy colors from bundles
 cp $VIM_BUNDLE/tender/colors/* $VIM_COLORS/
+cp $VIM_BUNDLE/simpleblack/colors/* $VIM_COLORS/
 
 # Remove previous vimrc file
 rm -f ~/.vimrc

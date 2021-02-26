@@ -74,7 +74,8 @@ set clipboard=unnamed " Use OS clipboard for copypasta
 
 set hidden " Allow hidden buffers, don't limit to 1 file per window/split
 
-set wildmode=longest,list,full " Bash-style tab completion
+" set wildmode=longest,list,full " Bash-style tab completion
+set wildmode=longest:full,full
 set wildmenu
 
 nnoremap <F2> :set invpaste paste?<CR>
@@ -170,6 +171,8 @@ nnoremap <silent> <leader>sc :Commits<CR>
 nnoremap <silent> <leader>st :Helptags<CR>
 nnoremap <silent> <leader>sh :History:<CR>
 " nnoremap <silent> <leader>sh/ :History/<CR> 
+autocmd! FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 
 "NerdTree
@@ -291,7 +294,29 @@ nmap <Leader>hu <Plug>GitGutterRevertHunk
 
 "Supertab
 set completeopt=longest,menuone
-let g:SuperTabDefaultCompletionType = "<C-t>"
+" let g:SuperTabDefaultCompletionType = "<C-t>" "This fucks up indentation
+function! Smart_TabComplete()
+  let line = getline('.')                         " current line
+
+  let substr = strpart(line, -1, col('.')+1)      " from the start of the current
+                                                  " line to one character right
+                                                  " of the cursor
+  let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
+  if (strlen(substr)==0)                          " nothing to match on empty string
+    return "\<tab>"
+  endif
+  let has_period = match(substr, '\.') != -1      " position of period, if any
+  let has_slash = match(substr, '\/') != -1       " position of slash, if any
+  if (!has_period && !has_slash)
+    return "\<C-X>\<C-P>"                         " existing text matching
+  elseif ( has_slash )
+    return "\<C-X>\<C-F>"                         " file matching
+  else
+    return "\<C-X>\<C-O>"                         " plugin matching
+  endif
+endfunction
+
+inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 
 
 "Gundo

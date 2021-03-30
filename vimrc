@@ -88,7 +88,7 @@ set ignorecase " Case-insensitive search
 
 set hlsearch " Highlight search results
 
-set expandtab     " replace <Tab with spaces
+set noexpandtab     " replace <Tab with spaces
 set tabstop=2     " number of spaces that a <Tab> in the file counts for
 set softtabstop=2 " remove <Tab> symbols as it was spaces
 set shiftwidth=2  " indent size for << and >>
@@ -344,11 +344,13 @@ let g:go_echo_command_info = 0
 
 "vim-test
 function Test_SetTypescriptExec()
-  let g:test#javascript#jest#executable = 'npm run fe:tsc && npx jest --config jest/jest.config.js'
+  " let g:test#javascript#jest#executable = 'npm run fe:tsc && npx jest --config jest/jest.config.js'
+  let g:test#javascript#jest#executable = 'NODE_ENV=testing npx mocha $MOCHA_OPTS --require test/setup.js --require @babel/register --require ignore-styles --file test/init.js'
 endfunction
 
 function Test_SetJavascriptExec()
-  let g:test#javascript#jest#executable = 'npx jest'
+  "let g:test#javascript#jest#executable = 'npx jest'
+  let g:test#javascript#mocha#executable = 'NODE_ENV=testing npx mocha $MOCHA_OPTS --require test/setup.js --require @babel/register --require ignore-styles --file test/init.js'
 endfunction
 
 " let g:test#preserve_screen = 1

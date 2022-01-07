@@ -17,7 +17,6 @@ call vundle#begin()
   Plugin 'tpope/vim-surround'
   Plugin 'scrooloose/nerdtree'
   Plugin 'preservim/nerdcommenter'
-  Plugin 'ryanoasis/vim-devicons'
   Plugin 'vim-airline/vim-airline'
   Plugin 'vim-airline/vim-airline-themes'
   Plugin 'scrooloose/syntastic'
@@ -32,11 +31,14 @@ call vundle#begin()
   Plugin 'junegunn/fzf.vim'
   Plugin 'tpope/vim-sleuth'
   Plugin 'junegunn/limelight.vim'
+  Plugin 'udalov/kotlin-vim'
 
   " Themes
   Plugin 'jacoborus/tender'
   Plugin 'lucasprag/simpleblack'
   Plugin 'flrnd/candid.vim'
+
+  Plugin 'ryanoasis/vim-devicons'
 call vundle#end()
 
 filetype plugin indent on
@@ -44,6 +46,9 @@ filetype plugin indent on
 
 " General
 syntax on " Switch syntax highlighting on
+" if !exists('g:syntax_on')
+"  syntax enable
+"endif
 
 let mapleader = "," " Map leader
 inoremap ,, <Esc>
@@ -368,3 +373,10 @@ nmap <silent> t<C-g> :TestVisit<CR>
 
 " syntax on
 " colorscheme tender
+"
+set conceallevel=3
+" set guifont=Fira\ Code\ Medium\ 12
+" let g:webdevicons_conceal_nerdtree_brackets = 0
+"if exists("g:loaded_webdevicons")
+"  call webdevicons#refresh()
+" endif

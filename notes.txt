@@ -22,3 +22,27 @@ https://sjl.bitbucket.io/gundo.vim/
 https://github.com/scrooloose/nerdtree
 https://stackoverflow.com/questions/4277808/nerdtree-auto-focus-to-file-when-opened-in-new-tab
 https://github.com/tpope/vim-fugitive
+
+
+TEXT
+----
+Always select anti-aliased
+
+
+CONFIG
+------
+~/.config/nvim/init.vim
+mv ~/Downloads/wakatime-cli-darwin-amd64 ~/.wakatime/
+cd ~/.vim/bundle/vim-gitgutter/ && git pull // problem in nvim
+brew tap homebrew/cask-fonts && brew install --cask font-hack-nerd-font // install fonts to have a nice nvim
+choose font for non ascii
+make sure conceal is in nvim https://github.com/ryanoasis/vim-devicons/wiki/FAQ-&-Troubleshooting#square-brackets-around-icons 
+
+brew cleanup // some trashy errors after updating & upgrading brew
+
+
+ICONS
+-----
+set conceallevel=3
+cd ~/.vim/bundle/nerdtree/ && git pull
+brew install vim
